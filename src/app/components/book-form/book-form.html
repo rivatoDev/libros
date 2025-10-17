@@ -1,0 +1,91 @@
+<form [formGroup]="form" id="book-form" (ngSubmit)="submitForm()">
+    @if (id) {
+        <fieldset>
+            <label id="id-label">ID</label>
+            <input type="text" id="id-input" formControlName="id" readonly>
+        </fieldset>
+    }
+
+    <fieldset>
+        <label for="title-input" id="title-label">Titulo</label>
+        <input type="text" id="title-input" formControlName="title">
+
+        @if (titleRequired) {
+            <h5> {{titleRequired}} </h5>
+        }@else if (title.hasError("minlength") && title.touched) {
+            <h5>El titulo debe tener al menos 5 caracteres</h5>
+        }@else if (title.hasError("maxlength") && title.touched) {
+            <h5>El titulo no puede tener mas de 15 caracteres</h5>
+        }@else if (repeatedBook) {
+            <h5>Ya existe un titulo con ese nombre</h5>
+        }
+    </fieldset>
+
+     <fieldset>
+        <label for="author-input" id="author-label">Autor</label>
+        <input type="text" id="author-input" formControlName="author">
+
+        @if (authorRequired) {
+            <h5> {{authorRequired}} </h5>
+        }@else if (author.hasError("minlength")) {
+            <h5>El autor debe tener al menos 5 caracteres</h5>
+        }@else if (author.hasError("maxlength")) {
+            <h5>El autor no puede tener mas de 15 caracteres</h5>
+        }
+    </fieldset>
+
+    <fieldset>
+        <label for="genre-input">Genero</label>
+        <select id="genre-input" formControlName="genre">
+            <option value="">Seleccione una opcion</option>
+            <option value="terror">Terror</option>
+            <option value="romance">Romance</option>
+            <option value="ciencia-ficcion">Ciencia Ficcion</option>
+            <option value="misterio">Misterio</option>
+            <option value="fantastico">Fantastico</option>
+        </select>
+
+        @if (genreRequired) {
+            <h5> {{genreRequired}} </h5>
+        }
+    </fieldset>
+
+    <fieldset>
+        <label for="date-input">Fecha de lanzamiento</label>
+        <input type="date" id="date-input" formControlName="releaseDate">
+
+        @if (releaseDateRequired) {
+            <h5> {{releaseDateRequired}} </h5>
+        }
+    </fieldset>
+
+    <fieldset>
+        <label for="cant-pages-input">Cantidad de paginas</label>
+        <input type="number" id="cant-pages-input" formControlName="cantPages">
+
+        @if (cantPagesRequired) {
+            <h5> {{cantPagesRequired}} </h5>
+        }@else if (cantPages.hasError("pattern")) {
+            <h5>La cantidad debe ser entera</h5>
+        }@else if (cantPages.hasError("min")) {
+            <h5>La cantidad debe ser positiva</h5>
+        }@else if (cantPages.hasError("max")) {
+            <h5>La cantidad no debe sobrepasar las 3000 paginas</h5>
+        }
+    </fieldset>
+
+    <fieldset>
+        <label for="valoration-input">Valoracion(1-5)</label>
+        <input type="number" id="valoration-input" formControlName="valoration">
+
+        @if (valorationRequired) {
+            <h5> {{valorationRequired}} </h5>
+        }@else if (valoration.hasError("min")) {
+            <h5>La valoracion tiene que ser positiva</h5>
+        }@else if (valoration.hasError("max")) {
+            <h5>La valoracion no puede sobrepasar a 5</h5>
+        }
+    </fieldset>
+
+    <input type="submit" id="submit-button" value="Enviar">
+</form>

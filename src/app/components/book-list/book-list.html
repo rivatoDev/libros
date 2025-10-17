@@ -1,0 +1,37 @@
+<main>
+    <fieldset>
+        <label for="category-filter">Filtrar por Genero</label>
+
+        <select id="category-filter" [(ngModel)]="categoryFilter">
+            <option value="">Genero</option>
+            <option value="terror">Terror</option>
+            <option value="romance">Romance</option>
+            <option value="ciencia-ficcion">Ciencia Ficcion</option>
+            <option value="misterio">Misterio</option>
+            <option value="fantastico">Fantastico</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+        <label for="title-filter">Filtrar por titulo</label>
+        <input type="text" id="title-filter" [(ngModel)]="titleFilter">
+    </fieldset>
+
+    <fieldset>
+        <label for="sort-input">Ordenar por titulo</label>
+        <select id="sort-input" [(ngModel)]="sort">
+            <option value="asc">Ascendiente</option>
+            <option value="desc">Descendiente</option>
+        </select>
+    </fieldset>
+
+    @if (this.books.length > 0) {
+        @for (book of filterBooks(); track $index) {
+            <app-book-item [book]="book" (deleted)="getBooks()"></app-book-item>
+        }
+    }@else {
+        <h1>No hay productos cargados</h1>
+    }
+
+    <br><br><button id="recent-button" (click)="getRecentBook()">Most Recent</button>
+</main>
